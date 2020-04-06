@@ -20,13 +20,15 @@ export default {
     return {
       text: '',
       suggestions: [],
+      endpoint: 'https://mock-autocomplete.herokuapp.com/autocomplete?q='
     }
   },
   methods: {
     autoCompleteFilter() {
       axios
-        .get('https://mock-autocomplete.herokuapp.com/autocomplete?q=' + this.text)
+        .get(this.endpoint + this.text)
         .then(resp => this.suggestions = resp.data.data)
+        .catch(error => console.log(error.response))
     },
     suggestionClicked(suggestion) {
       this.text = suggestion
